@@ -55,8 +55,10 @@ void main() {
     expectCount('0');
 
     await tester.tap(find.widgetWithText(ElevatedButton, '−'));
+    await tester.tap(find.widgetWithText(ElevatedButton, '−'));
+    await tester.tap(find.widgetWithText(ElevatedButton, '−'));
     await tester.pump();
-    expectCount('-1');
+    expectCount('-3');
 
     await tester.tap(resetButton);
     await tester.pump();
