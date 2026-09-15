@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'New App',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -55,6 +55,18 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+
+  void _resetCounter() {
+    setState(() {
+      _counter = 0;
+    });
+  }
+
+  void _decrementCounter() {
+    setState(() {
+      _counter--;
+    });
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -104,10 +116,30 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: .center,
           children: [
-            const Text('You have pushed the button this many times:'),
+            const Text('Truong have pushed the button this many times:'),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: _decrementCounter,
+                  child: const Text('−', semanticsLabel: 'Decrease count'),
+                ),
+                const SizedBox(width: 16),
+                ElevatedButton(
+                  onPressed: _resetCounter,
+                  child: const Text('0', semanticsLabel: 'Reset count'),
+                ),
+                const SizedBox(width: 16),
+                ElevatedButton(
+                  onPressed: _incrementCounter,
+                  child: const Text('+', semanticsLabel: 'Increase count'),
+                ),
+              ],
             ),
           ],
         ),
