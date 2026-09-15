@@ -27,4 +27,43 @@ void main() {
     expect(find.text('0'), findsOneWidget);
     expect(find.text('1'), findsOneWidget);
   });
+
+  testWidgets('Reset button clears positive and negative counts', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const MyApp());
+
+    final resetButton = find.widgetWithText(ElevatedButton, '0');
+    void expectCount(String value) {
+      expect(
+        find.byWidgetPredicate(
+          (widget) =>
+              widget is Text &&
+              widget.data == value &&
+              widget.semanticsLabel == null,
+        ),
+        findsOneWidget,
+      );
+    }
+
+    await tester.tap(find.widgetWithText(ElevatedButton, '+'));
+    await tester.pump();
+    expectCount('1');
+
+    await tester.tap(resetButton);
+    await tester.pump();
+    expectCount('0');
+
+    await tester.tap(find.widgetWithText(ElevatedButton, '−'));
+    await tester.pump();
+    expectCount('-1');
+
+    await tester.tap(resetButton);
+    await tester.pump();
+    expectCount('0');
+
+    await tester.tap(resetButton);
+    await tester.pump();
+    expectCount('0');
+  });
 }
